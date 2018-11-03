@@ -1,16 +1,27 @@
 package am.app.exchangerates.models;
 
-import java.util.Map;
+import com.google.gson.annotations.SerializedName;
 
 public class Currency {
 
-    private Map<String, Rate> rateMap;
+    @SerializedName("0")
+    private Rate rate;
 
-    public Map<String, Rate> getRateMap() {
-        return rateMap;
+    @SerializedName("1")
+    private Rate otherRate;
+
+    public Currency() {
     }
 
-    public void setRateMap(Map<String, Rate> rateMap) {
-        this.rateMap = rateMap;
+    public Currency(Rate rate) {
+        this.rate = rate;
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+
+    public void setRate(Rate rate) {
+        this.rate = rate;
     }
 }

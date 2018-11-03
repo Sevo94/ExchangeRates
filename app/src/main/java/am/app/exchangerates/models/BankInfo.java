@@ -7,38 +7,53 @@ import java.util.Map;
 public class BankInfo {
 
     @SerializedName("title")
-    private double title;
+    private String title;
 
     @SerializedName("date")
-    private double date;
+    private long date;
 
     @SerializedName("logo")
-    private double logo;
+    private String logo;
 
     @SerializedName("list")
     private Map<String, Currency> currencyMap;
 
-    public double getTitle() {
+    public BankInfo(String title, long date, String logo, Map<String, Currency> currencyMap) {
+        this.title = title;
+        this.date = date;
+        this.logo = logo;
+        this.currencyMap = currencyMap;
+    }
+
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(double title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public double getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(double date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
-    public double getLogo() {
+    public String getLogo() {
         return logo;
     }
 
-    public void setLogo(double logo) {
+    public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public Map<String, Currency> getCurrencyMap() {
+        return currencyMap;
+    }
+
+    public void setCurrencyMap(Map<String, Currency> currencyMap) {
+        this.currencyMap = currencyMap;
     }
 }

@@ -10,6 +10,11 @@ public class Rate {
     @SerializedName("sell")
     private double sellRate;
 
+    public Rate(double buyRate, double sellRate) {
+        this.buyRate = buyRate;
+        this.sellRate = sellRate;
+    }
+
     public double getBuyRate() {
         return buyRate;
     }
