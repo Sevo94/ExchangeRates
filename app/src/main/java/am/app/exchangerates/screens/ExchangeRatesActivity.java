@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import am.app.exchangerates.Constants;
 import am.app.exchangerates.ItemClickListener;
 import am.app.exchangerates.R;
 
@@ -18,6 +19,7 @@ public class ExchangeRatesActivity extends AppCompatActivity implements ItemClic
     @Override
     public void onItemClick(String id) {
         Intent bankDetailIntent = new Intent(this, BankDetailActivity.class);
+        bankDetailIntent.putExtra(Constants.ORGANIZATION_ID, id);
         startActivity(bankDetailIntent);
     }
 }
