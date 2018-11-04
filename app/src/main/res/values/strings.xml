@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">ExchangeRates</string>
+
+    <string-array name="rates_exchange_array">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>RUR</item>
+        <item>GEL</item>
+        <item>GBP</item>
+        <item>CHF</item>
+        <item>CAD</item>
+        <item>AUD</item>
+        <item>XAU</item>
+    </string-array>
 </resources>

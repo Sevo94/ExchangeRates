@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,10 +33,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ExchangeRatesFragment extends Fragment {
+public class ExchangeRatesFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+
+    private static final String TAG = ExchangeRatesFragment.class.getCanonicalName();
 
     private List<Organization> organizationList = new ArrayList<>();
     private ItemClickListener itemClickListener;
+    private Spinner ratesSpinner;
 
     public ExchangeRatesFragment() {
     }
@@ -45,7 +51,7 @@ public class ExchangeRatesFragment extends Fragment {
         try {
             itemClickListener = (ItemClickListener) context;
         } catch (ClassCastException e) {
-
+            Log.i(TAG, "host activity should implement this interface");
         }
     }
 
@@ -57,7 +63,13 @@ public class ExchangeRatesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.exchanger_rates_fragment_layout, container, false);
+        return inflater.inflate(R.layout.exchanger_rates_fragment_layout, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setUpSpinner(view);
 
         final RecyclerView exchangeRateRV = view.findViewById(R.id.rates_change_rv);
 
@@ -100,7 +112,23 @@ public class ExchangeRatesFragment extends Fragment {
                 Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
-        return view;
+    }
+
+    private void setUpSpinner(View view) {
+        ratesSpinner = view.findViewById(R.id.rates_spinner);
+        ratesSpinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> ratesAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.rates_exchange_array, android.R.layout.simple_spinner_item);
+
+        ratesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ratesSpinner.setAdapter(ratesAdapter);
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
     }
 
     //    try {

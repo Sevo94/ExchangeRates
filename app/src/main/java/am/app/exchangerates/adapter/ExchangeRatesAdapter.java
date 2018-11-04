@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
 import am.app.exchangerates.ItemClickListener;
@@ -71,9 +69,9 @@ public class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRatesAdap
 
         holder.bankName.setText(bankInfo.getTitle());
 
-        Glide.with(context)
-                .load(bankInfo.getLogo())
-                .into(holder.bankLogo);
+//        Glide.with(context)
+//                .load(bankInfo.getLogo())
+//                .into(holder.bankLogo);
     }
 
     @Override
