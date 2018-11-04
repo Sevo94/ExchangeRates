@@ -24,4 +24,12 @@ public class Currency {
     public void setRate(Rate rate) {
         this.rate = rate;
     }
+
+    public Rate getOtherRate() {
+        return otherRate;
+    }
+
+    public void setOtherRate(Rate otherRate) {
+        this.otherRate = otherRate;
+    }
 }

@@ -39,7 +39,9 @@ public class ExchangeRatesFragment extends Fragment implements AdapterView.OnIte
 
     private List<Organization> organizationList = new ArrayList<>();
     private ItemClickListener itemClickListener;
+    private ExchangeRatesAdapter exchangeRatesAdapter;
     private Spinner ratesSpinner;
+    private boolean isStarted = true;
 
     public ExchangeRatesFragment() {
     }
@@ -67,9 +69,8 @@ public class ExchangeRatesFragment extends Fragment implements AdapterView.OnIte
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final @NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setUpSpinner(view);
 
         final RecyclerView exchangeRateRV = view.findViewById(R.id.rates_change_rv);
 
@@ -94,7 +95,7 @@ public class ExchangeRatesFragment extends Fragment implements AdapterView.OnIte
                     exchangeRateRV.setLayoutManager(linearLayoutManager);
 
                     if (isAdded()) {
-                        ExchangeRatesAdapter exchangeRatesAdapter = new ExchangeRatesAdapter(getActivity(), organizationList, new ItemClickListener() {
+                        exchangeRatesAdapter = new ExchangeRatesAdapter(getActivity(), organizationList, new ItemClickListener() {
                             @Override
                             public void onItemClick(String id) {
                                 if (itemClickListener != null) {
@@ -103,6 +104,7 @@ public class ExchangeRatesFragment extends Fragment implements AdapterView.OnIte
                             }
                         });
                         exchangeRateRV.setAdapter(exchangeRatesAdapter);
+                        setUpSpinner(view);
                     }
                 }
             }
@@ -126,6 +128,11 @@ public class ExchangeRatesFragment extends Fragment implements AdapterView.OnIte
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
+        if (isStarted) {
+            isStarted = false;
+            return;
+        }
+        exchangeRatesAdapter.changeRates((String) parent.getItemAtPosition(pos));
     }
 
     public void onNothingSelected(AdapterView<?> parent) {

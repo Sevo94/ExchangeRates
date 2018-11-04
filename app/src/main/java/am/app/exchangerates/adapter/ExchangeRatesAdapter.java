@@ -11,16 +11,20 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import am.app.exchangerates.ExchangeCurrency;
 import am.app.exchangerates.ItemClickListener;
 import am.app.exchangerates.R;
 import am.app.exchangerates.models.BankInfo;
+import am.app.exchangerates.models.Currency;
 import am.app.exchangerates.models.Organization;
+import am.app.exchangerates.models.Rate;
 
 public class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRatesAdapter.MyViewHolder> {
 
     private Context context;
     private List<Organization> organizations;
     private ItemClickListener itemClickListener;
+    private ExchangeCurrency exchangeCurrency = ExchangeCurrency.USD;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView bankName, distance, buyRate, sellRate;
@@ -68,6 +72,14 @@ public class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRatesAdap
         BankInfo bankInfo = organization.getBankInfo();
 
         holder.bankName.setText(bankInfo.getTitle());
+        if (bankInfo.getCurrencyMap().containsKey(exchangeCurrency.getCurrency())) {
+            Currency currency = bankInfo.getCurrencyMap().get(exchangeCurrency.getCurrency());
+            Rate rate = (currency.getRate() != null) ? currency.getRate() : currency.getOtherRate();
+
+            holder.buyRate.setText(String.valueOf(rate.getBuyRate()));
+            holder.sellRate.setText(String.valueOf(rate.getSellRate()));
+        }
+
 
 //        Glide.with(context)
 //                .load(bankInfo.getLogo())
@@ -77,5 +89,10 @@ public class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRatesAdap
     @Override
     public int getItemCount() {
         return organizations.size();
+    }
+
+    public void changeRates(String currency) {
+        exchangeCurrency.setCurrency(currency);
+        notifyDataSetChanged();
     }
 }
