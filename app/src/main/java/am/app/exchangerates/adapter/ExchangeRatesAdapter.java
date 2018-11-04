@@ -78,6 +78,9 @@ public class ExchangeRatesAdapter extends RecyclerView.Adapter<ExchangeRatesAdap
 
             holder.buyRate.setText(String.valueOf(rate.getBuyRate()));
             holder.sellRate.setText(String.valueOf(rate.getSellRate()));
+        } else {
+            holder.buyRate.setText("");
+            holder.sellRate.setText("");
         }
 
 

@@ -21,7 +21,6 @@ public class RetrofitClientInstance {
 //                    .setLenient()
                     .enableComplexMapKeySerialization()
                     .registerTypeAdapter(ExchangeRateBaseModel.class, new DataParser())
-//                    .registerTypeAdapterFactory(new CustomTypeAdapterFactory(ExchangeRateBaseModel.class))
                     .create();
 
 
@@ -39,21 +38,4 @@ public class RetrofitClientInstance {
         }
         return retrofit;
     }
-
-//    public static Gson buildGson() {
-//
-//        final GsonBuilder gson = new GsonBuilder();
-//
-//        //gson.setPrettyPrinting();
-//        gson.serializeNulls();
-////        gson.excludeFieldsWithModifiers(Modifier.STATIC, Modifier.TRANSIENT, Modifier.VOLATILE);
-//
-//        // register the type adapter factories
-//        final CustomTypeAdapterFactory creator = new CustomTypeAdapterFactory();
-//        for (final TypeAdapterFactory factory : creator.getAdapters()) {
-//            gson.registerTypeAdapterFactory(factory);
-//        }
-//
-//        return gson.create();
-//    }
 }

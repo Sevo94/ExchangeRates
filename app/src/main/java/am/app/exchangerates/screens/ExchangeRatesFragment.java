@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import am.app.exchangerates.ExchangeCurrency;
 import am.app.exchangerates.ItemClickListener;
 import am.app.exchangerates.R;
 import am.app.exchangerates.adapter.ExchangeRatesAdapter;
@@ -41,7 +42,8 @@ public class ExchangeRatesFragment extends Fragment implements AdapterView.OnIte
     private ItemClickListener itemClickListener;
     private ExchangeRatesAdapter exchangeRatesAdapter;
     private Spinner ratesSpinner;
-    private boolean isStarted = true;
+    private boolean isStarted;
+    private String lastSelectedCurrency = ExchangeCurrency.USD.getCurrency();
 
     public ExchangeRatesFragment() {
     }
@@ -50,6 +52,7 @@ public class ExchangeRatesFragment extends Fragment implements AdapterView.OnIte
     public void onAttach(Context context) {
         super.onAttach(context);
 
+        isStarted = true;
         try {
             itemClickListener = (ItemClickListener) context;
         } catch (ClassCastException e) {
@@ -79,7 +82,7 @@ public class ExchangeRatesFragment extends Fragment implements AdapterView.OnIte
         call.enqueue(new Callback<ExchangeRateBaseModel>() {
             @Override
             public void onResponse(@NonNull Call<ExchangeRateBaseModel> call, @NonNull Response<ExchangeRateBaseModel> response) {
-                Log.i("Sevo", "onResponse");
+                Log.i(TAG, "onResponse");
 
                 ExchangeRateBaseModel exchangeRateBaseModel = response.body();
 
@@ -116,14 +119,29 @@ public class ExchangeRatesFragment extends Fragment implements AdapterView.OnIte
         });
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        isStarted = false;
+    }
+
     private void setUpSpinner(View view) {
         ratesSpinner = view.findViewById(R.id.rates_spinner);
         ratesSpinner.setOnItemSelectedListener(this);
+
         ArrayAdapter<CharSequence> ratesAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.rates_exchange_array, android.R.layout.simple_spinner_item);
 
         ratesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ratesSpinner.setAdapter(ratesAdapter);
+
+        for (int i = 0; i < ExchangeCurrency.values().length; i++) {
+            if (lastSelectedCurrency.equals(String.valueOf(ExchangeCurrency.values()[i]))) {
+                ratesSpinner.setSelection(i);
+                break;
+            }
+        }
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,
@@ -132,49 +150,10 @@ public class ExchangeRatesFragment extends Fragment implements AdapterView.OnIte
             isStarted = false;
             return;
         }
-        exchangeRatesAdapter.changeRates((String) parent.getItemAtPosition(pos));
+        lastSelectedCurrency = (String) parent.getItemAtPosition(pos);
+        exchangeRatesAdapter.changeRates(lastSelectedCurrency);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
     }
-
-    //    try {
-//        JSONObject jsonObject = new JSONObject(rawResponse);
-//        Iterator<String> keys = jsonObject.keys();
-//
-////                    while (keys.hasNext()) {
-////                        String key = keys.next();
-////                        if (jsonObject.get(key) instanceof JSONObject) {
-////                            JSONObject jsonObject1 = (JSONObject) jsonObject.get(key);
-////                            if (jsonObject1.has("list")) {
-////                                JSONObject jsonObject2 = (JSONObject) jsonObject1.get("list");
-////
-////                                Iterator<String> keys1 = jsonObject2.keys();
-////                                while (keys1.hasNext()) {
-////                                    String key1 = keys1.next();
-////                                    if (jsonObject2.get(key1) instanceof JSONObject) {
-////                                        JSONObject jsonObject3 = (JSONObject) jsonObject2.get(key1);
-////
-////                                        Iterator<String> keys2 = jsonObject3.keys();
-////                                        while (keys2.hasNext()) {
-////                                            String key2 = keys2.next();
-////                                            if (jsonObject3.get(key2) instanceof JSONObject) {
-////                                                JSONObject jsonObject4 = (JSONObject) jsonObject3.get(key2);
-////                                                if (jsonObject4.has("buy")) {
-////                                                    String buy = jsonObject4.getString("buy");
-////                                                }
-////
-////                                                if (jsonObject4.has("sell")) {
-////                                                    String sell = jsonObject4.getString("sell");
-////                                                }
-////                                            }
-////                                        }
-////                                    }
-////                                }
-////                            }
-////                        }
-////                    }
-//    } catch (JSONException e) {
-//
-//    }
 }

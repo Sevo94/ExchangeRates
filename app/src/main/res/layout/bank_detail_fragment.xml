@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#D3D3D3"
     android:gravity="center">
 
     <LinearLayout
@@ -13,6 +13,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginStart="12dp"
+        android:animateLayoutChanges="true"
         android:background="@drawable/rounded_corners_layout"
         android:gravity="center"
         android:orientation="vertical">
@@ -21,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -32,63 +34,48 @@
                 tools:text="Evocabank" />
 
             <TextView
-                android:id="@+id/bank_location_tv"
+                android:id="@+id/bank_city_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black_color"
                 tools:text="Abovyan" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/bank_location_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black_color"
                 tools:text="Evocabank" />
 
             <TextView
+                android:id="@+id/phone_number_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black_color"
                 tools:text="Evocabank" />
 
             <TextView
+                android:id="@+id/phone_number_text_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Evocabank" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/work_hours_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black_color"
-                tools:text="monday-friday" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black_color"
-                tools:text="saturday" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="working hours" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

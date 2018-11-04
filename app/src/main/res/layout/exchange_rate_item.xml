@@ -13,6 +13,7 @@
         android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
+        android:id="@+id/bank_info_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -41,7 +42,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/bank_info_layout"
+        android:layout_toStartOf="@id/bank_info_layout">
 
         <TextView
             android:id="@+id/buy_rate_tv"

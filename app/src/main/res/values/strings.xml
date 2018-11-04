@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">ExchangeRates</string>
+    <string name="buy">Buy</string>
+    <string name="sell">Sell</string>
+    <string name="contact_number">Contact number</string>
+    <string name="working_days">Working days</string>
 
     <string-array name="rates_exchange_array">
         <item>USD</item>
